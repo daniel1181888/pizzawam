@@ -1,25 +1,73 @@
-import logo from './logo.svg';
 import './App.css';
+import handleSubmit from './handles/handlesubmit';
+import { useEffect, useRef, useState } from 'react';
+import { firestore } from "./config/firebase"
+import { getDocs, collection } from "firebase/firestore";
+import pizzawig from "./img/pizzawig.png"
 
+
+ 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, 'posts'));
+        const newData = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setData(newData);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //     try {
+  //       const querySnapshot = await getDocs(collection(firestore, 'posts'));
+  //       const newData = querySnapshot.docs.map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       }));
+  //       console.log(newData);
+  //     } catch (error) {
+  //       console.log('Error fetching data:', error);
+  //     }
+  //   };
+ 
+  //   getUsers();
+  // }, []);
+
+  const dataRef = useRef()
+  const submithandler = (e) => {
+    e.preventDefault()
+    handleSubmit(dataRef.current.value)
+    dataRef.current.value = ""
+  }
+ 
+  return (
+    <div className="App">
+      <div class = "header-post"> <p>Pizzamwam</p> 
+      <img src={pizzawig} class="logomain"></img>
+      <p id = "homemenu">home</p>
+      </div>
+      <form onSubmit={submithandler}>
+        <input type= "text" ref={dataRef} />
+        <button type = "submit">post</button>
+        <p>post page</p>
+      </form>
+      <p>User List</p>
+        {data.map((posts) => (
+          <p>{posts.titel} </p>
+        ))}
     </div>
   );
 }
-
+ 
 export default App;
