@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { firestore } from "./config/firebase"
 import { getDocs, collection } from "firebase/firestore";
 import pizzawig from "./img/pizzawig.png"
+import home from "./img/home.png"
+
 
 
  
@@ -53,9 +55,11 @@ function App() {
  
   return (
     <div className="App">
-      <div class = "header-post"> <p>Pizzamwam</p> 
+      <div class = "header-post"> <p id = "titlesite">Pizzamwam</p> 
       <img src={pizzawig} class="logomain"></img>
       <p id = "homemenu">home</p>
+      <img id = "logohome" src={home}></img>
+      <p id = "accmenu">account</p>
       </div>
       <form onSubmit={submithandler}>
         <input type= "text" ref={dataRef} />
