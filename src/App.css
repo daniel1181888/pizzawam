@@ -28,7 +28,9 @@ p{
 }
 
 #accmenu{
-  padding-left: 1500px;
+  margin-left: 1400px;
+  background-color: #1A1A1B;
+  border: none;
 }
 
 #titlesite{
@@ -41,4 +43,5 @@ p{
   color: white;
   width: 35px;
 }
+
 

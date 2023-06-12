@@ -1,0 +1,30 @@
+.post {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .post-tile {
+    height: 300px;
+    width: 300px;
+    margin: 10px;
+    border: 1px solid #343536;
+    padding: 10px;
+    background-color: #1A1A1B;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .post-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .post-description {
+    margin-bottom: 10px;
+  }
+  
