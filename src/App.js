@@ -4,17 +4,36 @@ import pizzawig from "./img/pizzawig.png"
 import home from "./img/home.png"
 import google from "./img/google.png"
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "./config/firebase";
+import { auth, firestore, googleProvider } from "./config/firebase";
 import Post from './post';
 import Header from './Header';
-
-
+import React from 'react';
+import SearchBar from './SearchBar';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 
  
 function App() {
   
-  
+  const handleSearch = (searchTerm) => {
+    // Perform the search using Firebase
+    const usersRef = firestore.ref('users');
+
+    usersRef
+      .orderByChild('name')
+      .startAt(searchTerm)
+      .endAt(`${searchTerm}\uf8ff`)
+      .once('value', (snapshot) => {
+        const searchResults = [];
+        snapshot.forEach((childSnapshot) => {
+          const user = childSnapshot.val();
+          searchResults.push(user);
+        });
+        console.log('Search results:', searchResults);
+        // Do something with the search results
+      });
+  };
   // useEffect(() => {
   //   const getUsers = async () => {
   //     try {
@@ -44,8 +63,11 @@ function App() {
   return (
      <div className="App">
   <Header />
+  <h1>Search App</h1>
+      <SearchBar onSearch={handleSearch} />
   <Post />
   <Footer />
+
 </div>
   );
 }
