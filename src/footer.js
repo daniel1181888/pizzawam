@@ -6,12 +6,18 @@ import { useRef } from 'react';
 
 
 function Footer() {
-
+  const descriptionRef = useRef();
   const dataRef = useRef()
   const submithandler = (e) => {
     e.preventDefault()
-    handleSubmit(dataRef.current.value)
-    dataRef.current.value = ""
+    
+    const testData = dataRef.current.value;
+    const description = descriptionRef.current.value;
+
+    handleSubmit(testData, description)
+
+    dataRef.current.value = "";
+    descriptionRef.current.value = "";
   }
 
 
@@ -19,8 +25,11 @@ function Footer() {
   return (
     <footer>
        <form onSubmit={submithandler}>
-        <input type= "text" ref={dataRef} />
-        <button type = "submit">post</button>
+        <div className='postinputfields'>
+          <input className='input-post' placeholder='post title' type= "text" ref={dataRef} />
+          <input className='input-post' placeholder='post beschrijving' type= "text" ref={descriptionRef} />
+        </div>
+        <button id="post-button"type = "submit">post</button>
       </form>
     </footer>
   );

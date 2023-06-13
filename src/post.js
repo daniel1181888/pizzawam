@@ -12,9 +12,12 @@ const Post = () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, 'posts'));
         const newData = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
           id: doc.id,
+          title: doc.data().title,
+          beschrijving: doc.data().beschrijving,
+          testData: doc.data().testData
         }));
+        console.log(newData)
         setData(newData);
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -28,9 +31,9 @@ const Post = () => {
     <div className="post">
       {data.map((post) => (
         <div key={post.id} className="post-tile">
-          <img src={post.image} alt={post.title} className="post-image" />
-          <p className="post-title">{post.title}</p>
-          <p className="post-description">{post.description}</p>
+          { console.log(post) }
+          <p className="post-title"> {post.testData}</p>
+          <p className="post-description">{post.beschrijving}</p>
           {/* Add any additional post content here */}
         </div>
       ))}
