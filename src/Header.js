@@ -24,6 +24,7 @@ function Header() {
       <p id = "homemenu">home</p>
       <img id = "logohome" src={home}></img>
       <button onClick={handlelogin} id = "accmenu"><img src={google} class="logomain"></img></button>
+      <button  class="login-button"><p>login</p></button><button  class="register-button"><p>register</p></button>
       </div>
   );
 }
