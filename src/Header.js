@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './App.css';
 import pizzawig from "./img/pizzawig.png"
 import home from "./img/home.png"
@@ -24,7 +25,9 @@ function Header() {
       <p id = "homemenu">home</p>
       <img id = "logohome" src={home}></img>
       <button onClick={handlelogin} id = "accmenu"><img src={google} class="logomain"></img></button>
-      <button  class="login-button"><p>login</p></button><button  class="register-button"><p>register</p></button>
+      <Link to="/register">
+        <button  class="login-button"><p>login</p></button><button  class="register-button"><p>register</p></button>
+      </Link>
       </div>
   );
 }
