@@ -82,3 +82,21 @@ p{
   background-color: #0f0f10;
 }
 
+.searchbar{
+  
+  width: 0PX;
+  height: 0PX;
+  padding-left: 800px;
+}
+
+#inputsearch {
+  margin-top: 15px;
+}
+
+#searchbutton{
+  margin-top: 15px;
+}
+
+.textsearch {
+  text-decoration: solid;
+}
