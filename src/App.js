@@ -7,6 +7,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "./config/firebase";
 import Post from './post';
 import Header from './Header';
+import Search from './Search';
 
 
 
@@ -43,9 +44,13 @@ function App() {
  
   return (
      <div className="App">
-  <Header />
+
+
+      <Search /> <Header />
+
   <Post />
   <Footer />
+
 </div>
   );
 }
