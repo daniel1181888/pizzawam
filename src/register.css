@@ -1,0 +1,35 @@
+.register-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .register-form {
+    border-radius: 15px;
+    padding: 50px;
+    background-color: #343536;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 250px;
+  }
+  
+  .register-button {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  
