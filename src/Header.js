@@ -25,7 +25,7 @@ function Header() {
         <img id="logohome" src={home} alt="Home" />
       </Link>
       <button onClick={handleLogin} id="accmenu">
-        <img src={google} className="logomain" alt="Google" />
+        <img src={google} className="logomaingoogle" alt="Google" />
       </button>
       <Link to="/login">
         <button className="login-button"><p>Login</p></button>
