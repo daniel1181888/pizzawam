@@ -44,13 +44,9 @@ function App() {
  
   return (
      <div className="App">
-
-
-      <Search /> <Header />
-
+  <Header />
   <Post />
   <Footer />
-
 </div>
   );
 }

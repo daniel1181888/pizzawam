@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import pizzawig from "./img/pizzawig.png";
@@ -6,17 +6,9 @@ import home from "./img/home.png";
 import google from "./img/google.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "./config/firebase";
+import Search from './Search';
 
-function Header() {
-  const handleLogin = async () => {
-    try {
-      const cred = await signInWithPopup(auth, googleProvider);
-      console.log(cred);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
+function Header({ user, handleLogin }) {
   return (
     <div className="header-post">
       <p id="titlesite">Pizzamwam</p>
@@ -24,17 +16,39 @@ function Header() {
       <Link to="/">
         <img id="logohome" src={home} alt="Home" />
       </Link>
-      <button onClick={handleLogin} id="accmenu">
-        <img src={google} className="logomaingoogle" alt="Google" />
-      </button>
+      <div className='searhbarbox'>
+        {/* <Search /> */}
+      </div>
+      {user ? (
+        <p>Welcome, {user.displayName}</p>
+      ) : (
+        <button onClick={handleLogin} id="accmenu">
+          <img src={google} className="logomaingoogle" alt="Google" />
+        </button>
+      )}
       <Link to="/login">
         <button className="login-button"><p>Login</p></button>
       </Link>
-      <Link to="/register"> {/* Added Link to LoginScreen */}
+      <Link to="/register">
         <button className="register-button"><p>Register</p></button>
       </Link>
     </div>
   );
 }
 
-export default Header;
+function HeaderContainer() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = async () => {
+    try {
+      const cred = await signInWithPopup(auth, googleProvider);
+      setUser(cred.user);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return <Header user={user} handleLogin={handleLogin} />;
+}
+
+export default HeaderContainer;
