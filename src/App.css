@@ -90,3 +90,9 @@ p{
 .searhbarbox{
     background-color: #343536;
 }
+
+.userbox{
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}

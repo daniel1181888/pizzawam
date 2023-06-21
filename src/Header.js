@@ -16,16 +16,14 @@ function Header({ user, handleLogin }) {
       <Link to="/">
         <img id="logohome" src={home} alt="Home" />
       </Link>
-      <div className='searhbarbox'>
-        {/* <Search /> */}
-      </div>
       {user ? (
-        <p>Welcome, {user.displayName}</p>
+        <div className='userbox' ><p>Welkom, {user.displayName}</p></div>
       ) : (
+        <div className='userbox'><p>User</p></div>
+      )}
         <button onClick={handleLogin} id="accmenu">
           <img src={google} className="logomaingoogle" alt="Google" />
         </button>
-      )}
       <Link to="/login">
         <button className="login-button"><p>Login</p></button>
       </Link>
