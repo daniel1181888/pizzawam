@@ -34,7 +34,7 @@ const Post = () => {
           { console.log(post) }
           <p className="post-title"> {post.testData}</p>
           <p className="post-description">{post.beschrijving}</p>
-          {/* Add any additional post content here */}
+          {/*  */}
         </div>
       ))}
     </div>

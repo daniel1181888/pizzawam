@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './config/firebase';
 import Header from './Header';
 import Footer from './footer';
-import './register.css'; // Import the shared CSS file
+import './register.css'; 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -13,13 +13,13 @@ const LoginScreen = () => {
   const handleLoginClick = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Login successful
+       
         const user = userCredential.user;
         console.log('Login successful:', user);
-        // Redirect to home page or perform any other actions
+        
       })
       .catch((error) => {
-        // Login failed
+        
         console.error('Login failed:', error);
       });
   };

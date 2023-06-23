@@ -22,7 +22,7 @@ const Search = () => {
         });
     }
 
-    // Perform the search query using Firestore
+    
     // const dbRef = firestore.collection('posts'); // Replace 'yourCollection' with your actual collection name
     // dbRef
     //   .where('name', '==', searchQuery)
