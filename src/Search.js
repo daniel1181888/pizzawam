@@ -1,45 +1,56 @@
 import React, { useState } from 'react';
-import { firestore } from './config/firebase';
-
-
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from './config/firebase';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (event) => {
-    event.preventDefault();
+    if(event.code === "Enter") {
+      // alert(event.target.value);
 
-    // Perform the search query using Firebase
-    const dbRef = firestore.database().ref('./config/firebase'); // Replace with your own database path
-    dbRef
-      .orderByChild('name')
-      .equalTo(searchQuery)
-      .once('value')
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const results = Object.keys(data).map((key) => ({ id: key, ...data[key] }));
-          setSearchResults(results);
-        } else {
-          setSearchResults([]);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      const postsRef = collection(db, "posts");
+      const q = query(postsRef, where("testData", "==", event.target.value));
+      let newData;
+      
+      getDocs(q)
+        .then((querySnapshot) => {
+          newData = querySnapshot.docs
+            .map((doc) => ({ ...doc.data(), id: doc.id }));
+          console.log(newData);
+        });
+    }
+
+    // Perform the search query using Firestore
+    // const dbRef = firestore.collection('posts'); // Replace 'yourCollection' with your actual collection name
+    // dbRef
+    //   .where('name', '==', searchQuery)
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     if (!querySnapshot.empty) {
+    //       const results = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    //       setSearchResults(results);
+    //     } else {
+    //       setSearchResults([]);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   return (
-    <div class = "searchbar">
-      <form onSubmit={handleSearch}>
-        <input id='inputsearch'
-          type="text"
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
-        />
-        <button type="submit"id='searchbutton'>Search</button>
-      </form>
+    <div className="searchbar">
+
+      <input
+        id="inputsearch"
+        type="text"
+        onKeyDown={handleSearch}
+      />
+      <button type="submit" id="searchbutton">
+        Search
+      </button>
 
       {searchResults.length > 0 ? (
         <ul>
@@ -48,7 +59,8 @@ const Search = () => {
           ))}
         </ul>
       ) : (
-        <div class = "textsearch"><p>Nothing</p>
+        <div className="textsearch">
+          <p>Nothing</p>
         </div>
       )}
     </div>

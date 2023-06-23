@@ -43,3 +43,7 @@ form{
 #post-button:hover{
   background-color: #555556;
 }
+
+.privacy-checkbox{
+  color: white;
+}

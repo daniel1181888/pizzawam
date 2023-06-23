@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import pizzawig from "./img/pizzawig.png";
@@ -9,6 +9,14 @@ import { auth, googleProvider } from "./config/firebase";
 import Search from './Search';
 
 function Header({ user, handleLogin }) {
+  const [displayName, setDisplayName] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.displayName ? user.displayName : user.email);
+    }
+  }, [user]);
+
   return (
     <div className="header-post">
       <p id="titlesite">Pizzamwam</p>
@@ -17,13 +25,16 @@ function Header({ user, handleLogin }) {
         <img id="logohome" src={home} alt="Home" />
       </Link>
       {user ? (
-        <div className='userbox' ><p>Welkom, {user.displayName}</p></div>
+        <div className='userbox'><p>Welcome, {displayName}</p></div>
       ) : (
         <div className='userbox'><p>User</p></div>
       )}
-        <button onClick={handleLogin} id="accmenu">
-          <img src={google} className="logomaingoogle" alt="Google" />
-        </button>
+      <div className="search-container">
+        <Search />
+      </div>
+      <button onClick={handleLogin} id="accmenu">
+        <img src={google} className="logomaingoogle" alt="Google" />
+      </button>
       <Link to="/login">
         <button className="login-button"><p>Login</p></button>
       </Link>
@@ -39,10 +50,11 @@ function HeaderContainer() {
 
   const handleLogin = async () => {
     try {
-      const cred = await signInWithPopup(auth, googleProvider);
-      setUser(cred.user);
-    } catch (e) {
-      console.error(e);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      setUser(user);
+    } catch (error) {
+      console.error(error);
     }
   };
 
